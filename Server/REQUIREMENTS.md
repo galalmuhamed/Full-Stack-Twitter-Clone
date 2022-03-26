@@ -1,0 +1,37 @@
+## Tables
+
+```
+CREATE TABLE users (
+  	id BIGSERIAL NOT NULL PRIMARY KEY,
+	first_name VARCHAR(50) NOT NULL,
+	last_name VARCHAR(50) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    user_name VARCHAR(50) NOT NULL UNIQUE,
+    avatar_url VARCHAR(255) NOT NULL,
+    gender VARCHAR(10) NOT NULl,
+    password VARCHAR(100) NOT NULL,
+    date_created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(0)
+);
+
+CREATE TABLE tweets (
+    id BIGSERIAL NOT NULL PRIMARY KEY,
+	text TEXT NOT NULL,
+    timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
+    author VARCHAR(50) REFERENCES users(user_name) NOT NULL
+);
+
+CREATE TABLE likes (
+   id BIGSERIAL NOT NULL PRIMARY KEY,
+   user_id VARCHAR(50) REFERENCES users(user_name) NOT NULL,
+   tweet_id BIGINT REFERENCES tweets(id) NOT NULL
+);
+
+CREATE TABLE replies (
+    id BIGSERIAL NOT NULL PRIMARY KEY,
+    parent_tweet BIGINT REFERENCES tweets(id),
+    replies BIGINT REFERENCES tweets(id)
+);
+
+
+
+```
